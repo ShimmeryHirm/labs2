@@ -39,6 +39,8 @@ char *file_read(char path[]) {
     long length;
     FILE *f = fopen(path, "r");
 
+    if (f == NULL) return NULL;
+
     fseek(f, 0, SEEK_END);
     length = ftell(f);
     fseek(f, 0, SEEK_SET);

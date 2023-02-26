@@ -16,6 +16,8 @@ const char *const item_quality_str[] =
 item *parse_html(char *path, int *len) {
 
     char *doc = file_read(path);
+    if (doc == NULL) exit(0);
+
     string *str = split(doc, "market_listing_row_link");
 
     *len = str->len - 1;
