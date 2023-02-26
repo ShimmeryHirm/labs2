@@ -1,3 +1,5 @@
 /cmake-build*
 /.idea
 /bench
+/src/lab1/page.html
+/src/lab2/files/
