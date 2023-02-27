@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -12,7 +12,7 @@ void decompress(char file_name[]) {
     if (text == NULL) exit(0);
     string *compressed_text = split(text, " ");
 
-    FILE *fp = fopen(compressed_name, "r");
+    FILE *fp = fopen(compressed_name, "rb");
     fseek(fp, 0L, SEEK_END);
     int size = ftell(fp);
     printf("Size: %d\n", size);
@@ -23,6 +23,11 @@ void decompress(char file_name[]) {
     if (text == NULL) exit(0);
     string *compressed_data = split(text, "\n");
 
+    fp = fopen(data_name, "rb");
+    fseek(fp, 0L, SEEK_END);
+    int data_size = ftell(fp);
+    printf("Data size: %d\n", data_size);
+    printf("Total size: %d\n", size + data_size);
 
     for (int i = 0; i < compressed_data->len; i++) {
         string *words = split(compressed_data->str[i], " ");
@@ -30,16 +35,12 @@ void decompress(char file_name[]) {
         swap_words(compressed_text, words->str[0], words->str[1]);
     }
 
-    // for (int i = 0; i < compressed_text->len; i++) {
-    //     printf("%s ", compressed_text->str[i]);
-    // }
-
     char *decompressed_name = calloc(strlen(file_name) + 10, sizeof(char));
     strcat(strcat(decompressed_name, file_name), ".decompressed");
 
     fclose(fopen(decompressed_name, "w"));
 
-    fp = fopen(decompressed_name, "a");
+    fp = fopen(decompressed_name, "ab");
     if (fp == NULL) exit(0);
 
     for (int i = 0; i < compressed_text->len; i++) {

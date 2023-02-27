@@ -51,10 +51,12 @@ void swap_words(string *text, char *word1, char *word2) {
         }
     }
 }
+
+
 char *file_read(char path[]) {
 
     long length;
-    FILE *f = fopen(path, "r");
+    FILE *f = fopen(path, "rb");
 
     if (f == NULL) return NULL;
 

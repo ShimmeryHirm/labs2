@@ -16,7 +16,9 @@ int check(Node *head, char *word) {
 int count_profit(Node *a, Node *b) {
     if (a->count <= b->count) return -0;
     else if (a->used || b->used) return -1;
-    else return (a->count * a->len + b->count * b->len) - (a->count * b->len + b->count * a->len);
+    else
+        return (a->count * a->len + b->count * b->len) - (a->count * b->len + b->count * a->len) -
+               (b->len + a->len + 2);
 
 }
 
@@ -50,14 +52,14 @@ void replace_words(Node *head, string *split_text, char *file_name) {
 
             b = b->next;
         }
+
         if (max > 0) {
             mark_used(head, a->word);
             mark_used(head, word);
 
+            if (strlen(word) == 0 || strlen(a->word) == 0) continue;
             swap_words(split_text, a->word, word);
-
-
-            FILE *fp = fopen(data_name, "a");
+            FILE *fp = fopen(data_name, "ab");
             if (fp == NULL) exit(0);
 
             fputs(a->word, fp);
@@ -75,7 +77,7 @@ void count_repeats(string *split_text, Node **head) {
     for (int i = 0; i < split_text->len; i++) {
 
         if (check(*head, split_text->str[i])) continue;
-
+        if (strstr(split_text->str[i], "\n") != NULL) continue;
         int cnt = 0;
         for (int j = 0; j < split_text->len; j++) {
             if (strcmp(split_text->str[i], split_text->str[j]) == 0) {
@@ -92,7 +94,7 @@ void compress(char file_name[]) {
     char *text = file_read(file_name);
     if (text == NULL) exit(0);
 
-    FILE *fp = fopen(file_name, "r");
+    FILE *fp = fopen(file_name, "rb");
     fseek(fp, 0L, SEEK_END);
     int size = ftell(fp);
     printf("Size: %d\n", size);
@@ -107,7 +109,7 @@ void compress(char file_name[]) {
     char *compressed_name = calloc(strlen(file_name) + 10, sizeof(char));
     strcat(strcat(compressed_name, file_name), ".compressed");
     fclose(fopen(compressed_name, "w"));
-    fp = fopen(compressed_name, "a");
+    fp = fopen(compressed_name, "ab");
     if (fp == NULL) exit(0);
     for (int i = 0; i < split_text->len; i++) {
         fputs(split_text->str[i], fp);
@@ -117,6 +119,15 @@ void compress(char file_name[]) {
     size = ftell(fp);
     printf("New size: %d\n", size);
     fclose(fp);
+
+    char *data_name = calloc(strlen(file_name) + 10, sizeof(char));
+    strcat(strcat(data_name, file_name), ".data");
+
+    fp = fopen(data_name, "rb");
+    fseek(fp, 0L, SEEK_END);
+    int data_size = ftell(fp);
+    printf("Data size: %d\n", data_size);
+    printf("Total size: %d\n", size + data_size);
     printf("File compressed!\n");
 
 
