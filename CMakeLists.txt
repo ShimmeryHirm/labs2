@@ -12,3 +12,5 @@ add_executable(compress src/lab2/main.compressor.c src/lab2/utils.h src/lab2/uti
 
 add_executable(decompress src/lab2/main.decompressor.c src/lab2/utils.h src/lab2/utils.c src/lab2/linked_lists.h src/lab2/linked_lists.c
         src/lab2/decompress.h src/lab2/decompress.c)
+
+add_executable(lab3 src/lab3/main.c src/lab3/bitmap.c src/lab3/bitmap.h src/lab3/filters.c src/lab3/filters.h)
