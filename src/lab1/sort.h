@@ -1,7 +1,3 @@
-//
-// Created by shh on 12.02.2023.
-//
-
 #ifndef OAIP_LABS2_SORT_H
 #define OAIP_LABS2_SORT_H
 

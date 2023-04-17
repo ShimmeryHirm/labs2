@@ -87,6 +87,7 @@ void count_repeats(string *split_text, Node **head) {
         pushBack(&(*head), split_text->str[i], cnt);
     }
     mergeSort(&(*head));
+    pr(*head);
 }
 
 void compress(char file_name[]) {
