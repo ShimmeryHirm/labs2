@@ -17,3 +17,4 @@ add_executable(lab3 src/lab3/main.c src/lab3/bitmap.c src/lab3/bitmap.h src/lab3
 
 add_executable(lab4 src/lab4/main.c src/lab4/tree.c src/lab4/tree.h)
 
+add_executable(lab5 src/lab5/main.c src/lab5/cache.c src/lab5/cache.h src/lab5/tasks.c src/lab5/tasks.h src/lab5/utils.c src/lab5/utils.h src/lab5/config.h)
